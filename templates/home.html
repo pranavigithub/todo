@@ -26,14 +26,14 @@
         <p class="text-muted">{% now "jS F Y" %}</p>
         <div class="col-md-7 col-lg-7" style="height: 450px; overflow: scroll;">
             <!-- List of all the tasks for the day -->
-            {% for task in all_tasks %}
+            {% for each in all_tasks %}
             <div class="card m-1">
                 <div class="card-body">
-                     {{task.task}}
+                     {{each.task}}
                     <span style="position: relative; float: right;">
-                            <a class="btn btn-success"><i class="fa fa-check"></i> Mark as Done</a>
-                            <a class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                            <a class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                            <a href = "{% url 'mark_as_done' each.pk %}" class="btn btn-success"><i class="fa fa-check"></i> Mark as Done</a>
+                            <a href = "{% url 'delete' each.id %}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                            <a href = "{% url 'edit' each.pk %}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
                         </span>
                 </div>
             </div>
@@ -43,11 +43,16 @@
         <div class="col-md-5 col-lg-5">
             <h5>Completed Tasks</h5>
             <!-- List of all the tasks that have completed -->
+            {% for each in completed_tasks %}
             <div class="card m-1">
                 <div class="card-body">
-                    This is the completed task.
+                    {{each.task}}
+                    <span style="position: relative; float: right;">
+                            <a href = "{% url 'mark_as_undone' each.pk %}" class="btn btn-danger"><i class="fa fa-close"></i> Mark as Undone</a>
+                        </span>
                 </div>
             </div>
+            {% endfor%}
         </div>
     </div>
     <div class="row">
